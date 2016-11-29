@@ -1,7 +1,7 @@
 import Cache from './cache';
 
 export default class StorageCache extends Cache {
-  _set(key, value, callback) {
+  _set(key, value, callback = () => {}) {
     try {
       this._storage.setItem(key, value);
       callback();
@@ -10,7 +10,7 @@ export default class StorageCache extends Cache {
     }
   }
 
-  _get(key, callback) {
+  _get(key, callback = () => {}) {
     try {
       callback(null, this._storage.getItem(key));
     } catch (error) {
@@ -18,9 +18,18 @@ export default class StorageCache extends Cache {
     }
   }
 
-  _delete(key, callback) {
+  _delete(key, callback = () => {}) {
     try {
       this._storage.removeItem(key);
+      callback();
+    } catch (error) {
+      callback(error);
+    }
+  }
+
+  _flush(callback = () => {}) {
+    try {
+      this._storage.clear();
       callback();
     } catch (error) {
       callback(error);

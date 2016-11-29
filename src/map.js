@@ -26,4 +26,13 @@ export default class MapCache extends Cache {
       callback(error);
     }
   }
+
+  _flush(callback = () => {}) {
+    try {
+      this._storage.clear();
+      callback();
+    } catch (error) {
+      callback(error);
+    }
+  }
 }
