@@ -71,7 +71,7 @@ export default class Cache {
   }
 
   _hash(key) {
-    return sha1(key);
+    return sha1(JSON.stringify(key));
   }
 
   _stringify(value) {
