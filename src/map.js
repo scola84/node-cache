@@ -1,6 +1,11 @@
 import Cache from './cache';
 
 export default class MapCache extends Cache {
+  constructor() {
+    super();
+    this._storage = new Map();
+  }
+
   _set(key, value, callback) {
     try {
       this._storage.set(key, value);
